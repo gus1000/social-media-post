@@ -13,10 +13,16 @@ function createElement(type, data = "") {
 function createReply() {
   const reply = {
     replyID: Math.floor(Math.random() * 20),
-    userName: faker.internet.userName(),
-    text: faker.lorem.lines(1),
+    userName: faker.internet.userName() + " ",
+    text: faker.lorem.lines(2),
     imageURL: faker.image.url(),
-    createdAt: faker.date.past()
+    createdAt: faker.date
+      .past()
+      .toString()
+      .split(" ")
+      .splice(1, 3)
+      .toString(",")
+      .replace(",", " ")
   };
   return reply;
 }
@@ -25,10 +31,16 @@ function createPostwithReplies() {
   const numberOfReplies = Math.floor(Math.random() * 3);
   const post = {
     id: Math.floor(Math.random() * 20),
-    userName: faker.internet.userName(),
-    text: faker.lorem.lines(1),
+    userName: faker.internet.userName() + " ",
+    text: faker.lorem.lines(2),
     imageURL: faker.image.url(),
-    createdAt: faker.date.past(),
+    createdAt: faker.date
+      .past()
+      .toString()
+      .split(" ")
+      .splice(1, 3)
+      .toString(",")
+      .replace(",", " "),
     replies: []
   };
 
@@ -70,74 +82,82 @@ createPost();
 
 function renderPost(userName, text, imageURL, createdAt, replies) {
   const li = createElement("li");
+  console.log(text);
 
   // posts.appendChild(li);
 
   // const id = createElement("h5", id);
 
-  const profileContainer = createElement("div");
-  const user = createElement("h5");
-
-  const span = createElement("span");
+  const profile = createElement("div");
 
   const image = createElement("img");
   image.classList.add("profile-picture"); /////
   image.src = imageURL;
-  user.appendChild(image);
-  const userNameText = document.createTextNode(userName);
-  span.appendChild(userNameText);
-  user.appendChild(span);
+  image.classList.add("space");
 
-  profileContainer.appendChild(user);
+  const postInfo = createElement("div");
 
-  const comment = createElement("p", text);
+  const user = createElement("span", userName);
+  user.classList.add("space");
 
-  const dateCreated = createElement("h5", createdAt);
+  const dateCreated = createElement("span", createdAt);
+  const dateText = createElement("span", text);
+
+  dateText.classList.add("lower-margin");
+
+  postInfo.appendChild(image);
+
+  postInfo.appendChild(user);
+  postInfo.appendChild(dateCreated);
+  postInfo.classList.add("post-info");
+
+  profile.appendChild(dateText);
+  profile.classList.add("lower-margin");
+  li.appendChild(postInfo);
+
+  li.appendChild(profile);
 
   const replyList = createElement("ul");
+  replyList.classList.add("lower-margin");
 
   replies.forEach(function (reply) {
     const { userName, text, imageURL, createdAt } = reply;
 
-    const replyLi = createElement("li");
+    const li = createElement("li");
+    // li.classList.add("user-container");
 
-    const profileContainer = createElement("div"); /////
-
-    const user = createElement("h5");
-
-    const span = createElement("span");
+    const profile = createElement("div");
+    // profile.classList.add("user-container");
+    const postInfo = createElement("div");
 
     const image = createElement("img");
     image.classList.add("profile-picture");
     image.src = imageURL;
-    user.appendChild(image);
-    const userNameText = document.createTextNode(userName);
-    span.appendChild(userNameText);
-    user.appendChild(span);
-    
-    
+    image.classList.add("space");
+
+    const user = createElement("span", userName);
+    const dateCreated = createElement("span", createdAt);
+    user.classList.add("space");
+    const dateText = createElement("span", text);
+    // dateText.classList.add("lower-margin");
+    postInfo.appendChild(image);
+    postInfo.classList.add("post-info");
+    postInfo.classList.add("lower-margin");
+
+    postInfo.appendChild(user);
+    postInfo.appendChild(dateCreated);
+    profile.appendChild(dateText);
+
+    li.classList.add("upper-margin");
+
     ////////////////////////////////
+    li.appendChild(postInfo);
 
-    profileContainer.appendChild(user);
+    li.appendChild(profile);
 
-    const comment = createElement("p", text);
-
-    const dateCreated = createElement("h5", createdAt);
-
-    replyLi.appendChild(profileContainer);
-
-    replyLi.appendChild(comment);
-    replyLi.appendChild(dateCreated);
-    replyList.appendChild(replyLi);
+    replyList.appendChild(li);
   });
-
-  profileContainer.appendChild(user);
-
-  li.appendChild(profileContainer);
-
-  li.appendChild(comment);
-  li.appendChild(dateCreated);
-  li.appendChild(replyList);
-
+  profile.appendChild(replyList);
+  li.appendChild(profile);
   posts.appendChild(li);
 }
