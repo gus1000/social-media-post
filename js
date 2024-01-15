@@ -1,7 +1,9 @@
 console.clear();
 
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
+const posterContainer = document.querySelector(".poster-container");
 const postContainer = document.querySelector(".post-container");
+
 const posts = document.querySelector(".posts");
 
 function createElement(type, data = "") {
@@ -9,6 +11,8 @@ function createElement(type, data = "") {
   element.innerText = data;
   return element;
 }
+const viewCommentsButton = createElement("button", "view comments");
+posts.appendChild(viewCommentsButton);
 
 function createReply() {
   const reply = {
@@ -65,99 +69,105 @@ function generatePostData() {
   return posts;
 }
 
-function createPost() {
-  const data = generatePostData();
+const data = generatePostData();
 
-  const ul = createElement("ul");
-  const postLength = generatePostData().length;
+function renderPost(data) {
+  console.log(data.length);
 
-  for (let j = 0; j < postLength; j++) {
-    const { userName, text, imageURL, createdAt, replies } = data[j];
+  data.forEach(function (comment) {
+    viewCommentsButton.addEventListener("click", function () {
+      if (posts.innerHTML.length > 0) {
+        posts.innerHTML = ``;
+      } else {
+        console.log(comment);
+        const { userName, text, imageURL, createdAt, replies } = comment;
+        const li = createElement("li");
 
-    renderPost(userName, text, imageURL, createdAt, replies);
-  }
-}
+        const profile = createElement("div");
 
-createPost();
+        const image = createElement("img");
+        image.classList.add("profile-picture"); /////
+        image.src = imageURL;
+        image.classList.add("space");
 
-function renderPost(userName, text, imageURL, createdAt, replies) {
-  const li = createElement("li");
-  console.log(text);
+        const postInfo = createElement("div");
 
-  // posts.appendChild(li);
+        const user = createElement("span", userName);
+        user.classList.add("space");
 
-  // const id = createElement("h5", id);
+        const dateCreated = createElement("span", createdAt);
+        const dateText = createElement("span", text);
 
-  const profile = createElement("div");
+        dateText.classList.add("lower-margin");
 
-  const image = createElement("img");
-  image.classList.add("profile-picture"); /////
-  image.src = imageURL;
-  image.classList.add("space");
+        postInfo.appendChild(image);
 
-  const postInfo = createElement("div");
+        postInfo.appendChild(user);
+        postInfo.appendChild(dateCreated);
+        postInfo.classList.add("post-info");
 
-  const user = createElement("span", userName);
-  user.classList.add("space");
+        profile.appendChild(dateText);
+        profile.classList.add("lower-margin");
+        li.appendChild(postInfo);
 
-  const dateCreated = createElement("span", createdAt);
-  const dateText = createElement("span", text);
+        li.appendChild(profile);
 
-  dateText.classList.add("lower-margin");
+        const replyList = createElement("ul");
+        replyList.classList.add("lower-margin");
 
-  postInfo.appendChild(image);
+        const viewRepliesButton = createElement("button", "view replies");
+        profile.appendChild(replyList);
+        li.appendChild(profile);
+        li.appendChild(viewRepliesButton);
 
-  postInfo.appendChild(user);
-  postInfo.appendChild(dateCreated);
-  postInfo.classList.add("post-info");
+        viewRepliesButton.addEventListener("click", function () {
+          if (replyList.innerHTML.length > 0) {
+            replyList.innerHTML = ``;
+          } else {
+            replies.forEach(function (reply) {
+              const { userName, text, imageURL, createdAt } = reply;
 
-  profile.appendChild(dateText);
-  profile.classList.add("lower-margin");
-  li.appendChild(postInfo);
+              const li = createElement("li");
+              // li.classList.add("user-container");
 
-  li.appendChild(profile);
+              const profile = createElement("div");
+              // profile.classList.add("user-container");
+              const postInfo = createElement("div");
 
-  const replyList = createElement("ul");
-  replyList.classList.add("lower-margin");
+              const image = createElement("img");
+              image.classList.add("profile-picture");
+              image.src = imageURL;
+              image.classList.add("space");
 
-  replies.forEach(function (reply) {
-    const { userName, text, imageURL, createdAt } = reply;
+              const user = createElement("span", userName);
+              const dateCreated = createElement("span", createdAt);
+              user.classList.add("space");
+              const dateText = createElement("span", text);
+              // dateText.classList.add("lower-margin");
+              postInfo.appendChild(image);
+              postInfo.classList.add("post-info");
+              postInfo.classList.add("lower-margin");
 
-    const li = createElement("li");
-    // li.classList.add("user-container");
+              postInfo.appendChild(user);
+              postInfo.appendChild(dateCreated);
+              profile.appendChild(dateText);
 
-    const profile = createElement("div");
-    // profile.classList.add("user-container");
-    const postInfo = createElement("div");
+              li.classList.add("upper-margin");
 
-    const image = createElement("img");
-    image.classList.add("profile-picture");
-    image.src = imageURL;
-    image.classList.add("space");
+              ////////////////////////////////
+              li.appendChild(postInfo);
 
-    const user = createElement("span", userName);
-    const dateCreated = createElement("span", createdAt);
-    user.classList.add("space");
-    const dateText = createElement("span", text);
-    // dateText.classList.add("lower-margin");
-    postInfo.appendChild(image);
-    postInfo.classList.add("post-info");
-    postInfo.classList.add("lower-margin");
+              li.appendChild(profile);
 
-    postInfo.appendChild(user);
-    postInfo.appendChild(dateCreated);
-    profile.appendChild(dateText);
+              replyList.appendChild(li);
+            });
+          }
+        });
 
-    li.classList.add("upper-margin");
-
-    ////////////////////////////////
-    li.appendChild(postInfo);
-
-    li.appendChild(profile);
-
-    replyList.appendChild(li);
+        posts.appendChild(li);
+      }
+    });
   });
-  profile.appendChild(replyList);
-  li.appendChild(profile);
-  posts.appendChild(li);
 }
+
+renderPost(data);
