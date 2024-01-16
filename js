@@ -12,7 +12,7 @@ function createElement(type, data = "") {
   return element;
 }
 const viewCommentsButton = createElement("button", "view comments");
-posts.appendChild(viewCommentsButton);
+posterContainer.appendChild(viewCommentsButton);
 
 function createReply() {
   const reply = {
@@ -32,7 +32,7 @@ function createReply() {
 }
 
 function createPostwithReplies() {
-  const numberOfReplies = Math.floor(Math.random() * 3);
+  const numberOfReplies = Math.floor(Math.random() * 3) + 1;
   const post = {
     id: Math.floor(Math.random() * 20),
     userName: faker.internet.userName() + " ",
@@ -72,15 +72,18 @@ function generatePostData() {
 const data = generatePostData();
 
 function renderPost(data) {
-  console.log(data.length);
+  // const viewCommentsButton = createElement("button", "view comments");
+  // posts.appendChild(viewCommentsButton);
+  // console.log(viewCommentsButton.innerHTML.length);
+  // console.log(posts.innerHTML.length);
 
-  data.forEach(function (comment) {
-    viewCommentsButton.addEventListener("click", function () {
-      if (posts.innerHTML.length > 0) {
-        posts.innerHTML = ``;
-      } else {
-        console.log(comment);
+  viewCommentsButton.addEventListener("click", function () {
+    if (posts.innerHTML.length > 0) {
+      posts.innerHTML = ``;
+    } else {
+      data.forEach(function (comment) {
         const { userName, text, imageURL, createdAt, replies } = comment;
+
         const li = createElement("li");
 
         const profile = createElement("div");
@@ -165,8 +168,8 @@ function renderPost(data) {
         });
 
         posts.appendChild(li);
-      }
-    });
+      });
+    }
   });
 }
 
