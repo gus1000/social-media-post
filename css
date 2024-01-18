@@ -1,12 +1,14 @@
-li, ul, p {
-  margin, padding: 0;
+h5 {
+  margin: 0;
 }
 
-li, .posts {
-  list-style: none ;
+li,
+.posts {
+  list-style: none;
 }
 
 .container {
+  position: relative;
   display: flex;
   justify-content: center;
 }
@@ -25,19 +27,182 @@ li, .posts {
   height: 100vh;
 }
 
-.profile-picture {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  
-  
+.person-container {
+  border-bottom: solid 1px black;
+  display: flex;
+  align-items: center;
 }
 
-.span {
-  display: inline-block;
+.user-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+.paragraph-text {
 }
 
 /* .profile-container {
   display: flex;
   
 } */
+
+.space {
+  margin-right: 6px;
+}
+
+.lower-margin {
+  margin-bottom: 10px;
+}
+
+.upper-margin {
+  margin-top: 10px;
+}
+
+.post-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.post-stats-container {
+  margin-left: 10px;
+}
+
+.post-buttons-container {
+  padding-top: 15px;
+  border-top: black 1px solid;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.size {
+  height: 30px;
+  width: 30px;
+}
+
+.no-color {
+  background: none;
+  border: none;
+  height: 30px;
+}
+
+.current-date {
+  margin-left: 13px;
+}
+
+.others {
+  border: none;
+  background: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.likes-header {
+  gap: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.arrow-icon-size {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.likes {
+  color: white;
+  font-size: 16px;
+}
+
+.likes-search {
+  display: flex;
+  justify-content: space-evenly;
+  border-top: white 1px solid;
+  width: 100%;
+  padding-top: 20px;
+  margin-bottom: 15px;
+}
+
+.input {
+  background: #424242;
+  width: 80%;
+}
+
+.post-container {
+  width: 300px;
+  height: 100vh;
+}
+
+.poster-container {
+  border-bottom: solid 1px black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.profile-picture {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.follow-button {
+  padding: 7px 30px;
+  background-color: #23aeff;
+  border-radius: 10px;
+}
+
+.username {
+  text-align: center;
+  padding-top: 8px;
+  color: white;
+}
+
+.name {
+  margin-top: 5px;
+}
+
+.person-container {
+  border-bottom: solid 1px black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.follow-button {
+  padding: 7px 30px;
+  background-color: #23aeff;
+  border-radius: 10px;
+}
+
+.card {
+  position: absolute;
+  display: block;
+  background: black;
+  width: 40%;
+  top: 100px;
+  left: 150px;
+}
+
+.hidden {
+  display: block;
+  visibility: hidden;
+}
