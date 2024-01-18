@@ -1,8 +1,17 @@
 console.clear();
 
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
+const container = document.querySelector(".container");
+const profileImage = document.querySelector(".image");
+const card = document.querySelector(".card");
+const closeButton = document.querySelector(".close-button");
+
 const posterContainer = document.querySelector(".poster-container");
 const postContainer = document.querySelector(".post-container");
+const heartButton = document.querySelector(".heart-button");
+const postButtonsContainer = document.querySelector(".post-buttons-container");
+const postStatsContainer = document.querySelector(".post-stats-container");
+const currentDate = document.querySelector(".current-date");
 
 const posts = document.querySelector(".posts");
 
@@ -174,3 +183,48 @@ function renderPost(data) {
 }
 
 renderPost(data);
+
+heartButton.addEventListener("click", function () {
+  const likes = data.map(function (person) {
+    return person.userName;
+  });
+
+  postStatsContainer.innerHTML = `<h5> ${likes[0]} and ${
+    likes.length - 1
+  } <span><button class="others">others</button></span> like this</h5>`;
+  const others = document.querySelector(".others");
+  postStatsContainer.classList.add("post-stats-container");
+  others.addEventListener("click", function () {
+    data.forEach(function (person) {
+      const personContainer = createElement("div");
+      const image = createElement("img");
+      image.src = person.imageURL;
+      image.classList.add("profile-image");
+      const userName = createElement("h5", person.userName);
+      userName.classList.add("username");
+
+      const followButton = createElement("button", "follow");
+      personContainer.appendChild(image);
+      personContainer.appendChild(userName);
+
+      personContainer.appendChild(followButton);
+      personContainer.classList.add("person-container");
+      card.appendChild(personContainer);
+    });
+    card.classList.toggle("hidden");
+
+    closeButton.addEventListener("click", function () {
+      card.classList.toggle("hidden");
+    });
+  });
+});
+
+// // others.addEventListener("click", function () {
+//     data.forEach(function (person) {
+//       cards.innerHTML += `<div class="poster-container">
+
+//     <img class="profile-picture" src=${person.imageURL} alt="">
+//     <span class="poster"> ${person.userName} <p class ="name">Jonas</p></span>
+
+//     <button class="follow-button">Follow</button>
+//   </div> `;
