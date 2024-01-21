@@ -1,4 +1,3 @@
-console.clear();
 
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
 const container = document.querySelector(".container");
