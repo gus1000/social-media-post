@@ -1,9 +1,9 @@
+console.clear();
 
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
 const container = document.querySelector(".container");
 const profileImage = document.querySelector(".image");
 const card = document.querySelector(".card");
-const closeButton = document.querySelector(".close-button");
 
 const posterContainer = document.querySelector(".poster-container");
 const postContainer = document.querySelector(".post-container");
@@ -11,6 +11,7 @@ const heartButton = document.querySelector(".heart-button");
 const postButtonsContainer = document.querySelector(".post-buttons-container");
 const postStatsContainer = document.querySelector(".post-stats-container");
 const currentDate = document.querySelector(".current-date");
+const closeButton = document.querySelector(".close-button");
 
 const posts = document.querySelector(".posts");
 
@@ -172,7 +173,7 @@ function renderPost(data) {
 
               replyList.appendChild(li);
             });
-          }
+          } 
         });
 
         posts.appendChild(li);
@@ -211,9 +212,10 @@ heartButton.addEventListener("click", function () {
       card.appendChild(personContainer);
     });
     card.classList.toggle("hidden");
-
     closeButton.addEventListener("click", function () {
-      card.classList.toggle("hidden");
+      card.classList.toggle("card");
+            // card.classList.toggle("hidden");
+
     });
   });
 });
