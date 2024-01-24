@@ -20,6 +20,18 @@ function createElement(type, data = "") {
   element.innerText = data;
   return element;
 }
+
+function generateDate() {
+faker.date
+      .past()
+      .toString()
+      .split(" ")
+      .splice(1, 3)
+      .toString(",")
+      .replace(",", " "
+
+  
+}
 const viewCommentsButton = createElement("button", "view comments");
 posterContainer.appendChild(viewCommentsButton);
 
@@ -29,13 +41,7 @@ function createReply() {
     userName: faker.internet.userName() + " ",
     text: faker.lorem.lines(2),
     imageURL: faker.image.url(),
-    createdAt: faker.date
-      .past()
-      .toString()
-      .split(" ")
-      .splice(1, 3)
-      .toString(",")
-      .replace(",", " ")
+    createdAt: generateDate(),
   };
   return reply;
 }
